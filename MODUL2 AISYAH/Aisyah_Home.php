@@ -37,7 +37,7 @@ $page = "Home";
 
 <!--MOBIL-->
 <div class="container">
-  <form action="Booking.php">
+  <form action="Aisyah_Booking.php">
   <div class="row">
     <div class="col">
 <div class="card" style="width: 18rem;">

@@ -43,7 +43,7 @@ $page = "Home";
                 <?php endif; ?>
                         </div>
                         <div class="col-md-6">
-                            <form action="MyBooking.php" method="post">
+                            <form action="Aisyah_MyBooking.php" method="post">
                                 <div class="form-group mt-2">
                                     <label for="nama">Name</label>
                                     <input type="name " class="form-control" name="Name" id="Name" aria-describedby="namaHelp" value="AISYAH_1202204044" readonly>
