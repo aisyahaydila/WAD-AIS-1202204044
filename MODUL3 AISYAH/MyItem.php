@@ -1,7 +1,9 @@
 <?php
-$title  = "Menubar dinamis with PHP";
-$page = "Home";
+// $title  = "Menubar dinamis with PHP";
+// $page = "Home";
+include('konektor.php');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +25,7 @@ $page = "Home";
                     <a class="nav-link" href="Home.php">Home</a>
                     <a class="nav-link" href="additem.php">MyCar</a>
                     <nav navbar-expand-lg navbar-dark bg-primary class="container-fluid">
-                        <button class="btn btn-light" type="submit">AddCar</button>
+                    <a href="AddItem.php" type="submit" name="submit" class="btn btn-primary">AddCar</a>
                 </div>
             </div>
         </div>
@@ -37,21 +39,21 @@ $page = "Home";
 </div>
 
 <tbody>
-    <?php
-    include('konektor.php');
-    $query = mysqli_query($connector, "SELECT * FROM showroom_aisyah_table");
-
-    if($query){
-        while($selects = mysqli_fetch_assoc($query)){
-
-    ?>
+    
     
 <section>
     <div class="mt-5 container rounded-1">
         <div class="row">
+        <?php
+            $query = mysqli_query($connector, "SELECT * FROM showroom_aisyah_table");
+
+            if($query){
+                while($selects = mysqli_fetch_assoc($query)){
+
+        ?>
             <div class="col-4">
                 <div class="card shadow">
-                    <img class="card-img-top" src="gambar/bmwi4.jpg" alt="BMWi4">
+                    <img class="card-img-top" src="gambar/<?php echo $selects['foto_mobil']; ?>" alt="BMWi4">
                         <div class="row">
                             <div class="col">
                             </div>
@@ -60,22 +62,25 @@ $page = "Home";
                                 <p class="card-text">The first all-electric Gran Coupé, the BMW i4 delivers outstanding dynamics with a high level of comfort...</p>
                                 <div class="row g-0">
                                     <div class="col-3">
-                                        <a href="#" class="btn btn-primary">Detail</a>
+                                    <a href="ItemDetail.php?id_mobil=<?php echo $selects['id_mobil']?>" class="btn btn-primary">Detail</a>
                                         <form action="ItemDetail.php" method="post">
                                     </div>
                                     <div class="col-3">
-                                        <a href="#" class="btn btn-danger">Delete</a>
+                                        <a href="delete.php?id_mobil=<?php echo $selects['id_mobil']?>" class="btn btn-danger">Delete</a>
                                     </div> 
                                 </div>
                             </div>
                         </div>
                 </div>
             </div>
+            <?php
+        }
+    }
+    ?>
+</div>
         </div>
     </div>
 </section>
-        }
-    }
-</div>
+
 </body>
 </html>

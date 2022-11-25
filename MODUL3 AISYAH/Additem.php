@@ -31,7 +31,6 @@ $page = "Home";
 <div class="mt-5 container rounded-1">
             <br><p style="font-size:30px"><b>Tambah Mobil</b></p>
             <p> Tambah Mobil baru anda ke list show room </p></br>
-            <a href="MyItem.php" type="submit" name="submit" class="btn btn-primary">selesai</a>
             <ul type="none">
                 <form action="insert.php" method="post" enctype="multipart/form-data">
                     <div class="p-2">
@@ -71,7 +70,7 @@ $page = "Home";
                                 <label class="form-check-label" for="Belum Lunas">Belum Lunas</label>
                             </div>
                         <li class="pt-2 mb-2">
-                            <button class="btn btn-primary" type="submit" name="submit" style="width: 300px">Selesai</button>
+                            <button type="submit" name="submit" class="btn btn-primary">selesai</a>
                         </li>
                     </div>
                 </form>

@@ -43,7 +43,7 @@ $page = "Home";
                 <?php endif; ?>
                     </div>
                         <div class="col-md-6">
-                            <form action="EditItem.php" method="post">
+                            <form action="MyItem.php" method="post">
                                 <div class="form-group mt-2">
                                     <label class="mb-2" for="mobil"><b>Nama Mobil</b></label><br>
                                     <input class="form-control" type="text" name="mobil" id="mobil" placeholder="BMW I4">
