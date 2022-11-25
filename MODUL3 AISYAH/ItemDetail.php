@@ -1,6 +1,6 @@
 <?php
 $title  = "Menubar dinamis with PHP";
-$page = "Home";
+$page = "Home"; 
 ?>
 
 <!DOCTYPE html>

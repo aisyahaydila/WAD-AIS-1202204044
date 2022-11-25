@@ -33,7 +33,6 @@ $page = "Home";
     <div class="container p-5 vh-100">
         <form action="AddItem.php" method="post">
             <div class="row vh-100 align-items-center">
-
                 <div class="col" >
                     <h1> SELAMAT DATANG DI SHOW ROOM AISYAH WULAN AYDILA  </h1>
                     <p> At lacus vitae nulla sagittis scelerisque nisl. Pellentesque duis cursus vestibulum, facilisi ac, sed faucibus. </p>

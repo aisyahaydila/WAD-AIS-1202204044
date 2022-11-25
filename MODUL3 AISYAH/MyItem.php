@@ -14,21 +14,20 @@ $page = "Home";
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="Home.php">Home</a>
-        <a class="nav-link" href="additem.php">MyCar</a>
-        <nav navbar-expand-lg navbar-dark bg-primary class="container-fluid">
-                <button class="btn btn-light" type="submit">AddCar</button>
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> 
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="Home.php">Home</a>
+                    <a class="nav-link" href="additem.php">MyCar</a>
+                    <nav navbar-expand-lg navbar-dark bg-primary class="container-fluid">
+                        <button class="btn btn-light" type="submit">AddCar</button>
+                </div>
             </div>
-        </nav>
-      </div>
-    </div>
-  </div>
+        </div>
+    </form>
 </nav>
 
 <div class="mt-5 container rounded-1">
@@ -37,6 +36,16 @@ $page = "Home";
     <ul type="none"></ul>
 </div>
 
+<tbody>
+    <?php
+    include('konektor.php');
+    $query = mysqli_query($connector, "SELECT * FROM showroom_aisyah_table");
+
+    if($query){
+        while($selects = mysqli_fetch_assoc($query)){
+
+    ?>
+    
 <section>
     <div class="mt-5 container rounded-1">
         <div class="row">
@@ -47,11 +56,12 @@ $page = "Home";
                             <div class="col">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title">BMWi4</h4>
+                                <h4 class="card-title" value="<?= $selects['nama_mobil']?>"></h4>
                                 <p class="card-text">The first all-electric Gran Coupé, the BMW i4 delivers outstanding dynamics with a high level of comfort...</p>
                                 <div class="row g-0">
                                     <div class="col-3">
                                         <a href="#" class="btn btn-primary">Detail</a>
+                                        <form action="ItemDetail.php" method="post">
                                     </div>
                                     <div class="col-3">
                                         <a href="#" class="btn btn-danger">Delete</a>
@@ -64,6 +74,8 @@ $page = "Home";
         </div>
     </div>
 </section>
+        }
+    }
 </div>
 </body>
 </html>

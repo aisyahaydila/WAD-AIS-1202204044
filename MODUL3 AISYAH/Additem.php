@@ -1,6 +1,7 @@
 <?php
 $title  = "Menubar dinamis with PHP";
 $page = "Home";
+
 ?>
 
 <!DOCTYPE html>
@@ -30,13 +31,13 @@ $page = "Home";
 <div class="mt-5 container rounded-1">
             <br><p style="font-size:30px"><b>Tambah Mobil</b></p>
             <p> Tambah Mobil baru anda ke list show room </p></br>
-            <a href="MyItem.php" type="submit" class="btn btn-primary">MyCar</a>
+            <a href="MyItem.php" type="submit" name="submit" class="btn btn-primary">selesai</a>
             <ul type="none">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="insert.php" method="post" enctype="multipart/form-data">
                     <div class="p-2">
                         <li class="mb-2">
                             <label class="mb-2" for="mobil"><b>Nama Mobil</b></label><br>
-                            <input class="form-control" type="text" name="mobil" id="mobil" placeholder="BMW I4">
+                            <input class="form-control" type="text" name="nama" id="mobil" placeholder="BMW I4">
                         </li>
                         <li class="mb-2">
                             <label class="mb-2" for="pemilik"><b>Nama Pemilik</b></label>
@@ -62,11 +63,11 @@ $page = "Home";
                         <li class="mb-2">
                             <label class="mb-2 me-2" for="pembayaran"><b>Status Pembayaran</b></label>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input class="form-check-input" type="radio" name="pembayaran[]" id="pembayaran" value="Lunas">
+                                <input class="form-check-input" type="radio" name="pembayaran" id="pembayaran" value="Lunas">
                                 <label class="form-check-label" for="Lunas">Lunas</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input class="form-check-input" type="radio" name="pembayaran[]" id="pembayaran" value="Belum Lunas">
+                                <input class="form-check-input" type="radio" name="pembayaran" id="pembayaran" value="Belum Lunas">
                                 <label class="form-check-label" for="Belum Lunas">Belum Lunas</label>
                             </div>
                         <li class="pt-2 mb-2">
