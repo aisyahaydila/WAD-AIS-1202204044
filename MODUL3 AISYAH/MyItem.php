@@ -57,16 +57,16 @@ include('konektor.php');
                         <div class="row">
                             <div class="col">
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-title" value="<?= $selects['nama_mobil']?>"></h4>
-                                <p class="card-text">The first all-electric Gran Coupé, the BMW i4 delivers outstanding dynamics with a high level of comfort...</p>
+                            <div class='card-body'>
+                                <h5 class='card-title'>" . $selects["nama_mobil"] . "</h5>
+                                <p class='card-text'>" . substr($selects["deskripsi"], 0, 50) . '...' . "</p>
                                 <div class="row g-0">
                                     <div class="col-3">
                                     <a href="ItemDetail.php?id_mobil=<?php echo $selects['id_mobil']?>" class="btn btn-primary">Detail</a>
                                         <form action="ItemDetail.php" method="post">
                                     </div>
                                     <div class="col-3">
-                                        <a href="delete.php?id_mobil=<?php echo $selects['id_mobil']?>" class="btn btn-danger">Delete</a>
+                                        <a href="./delete.php?id_mobil=<?php echo $selects['id_mobil']?>" class="btn btn-danger">Delete</a>
                                     </div> 
                                 </div>
                             </div>
