@@ -1,121 +1,69 @@
-<?php 
+<?php
+include ('./konektor.php');
 session_start();
-
-$host = "localhost:3315";
-$user = "root";
-$password = "";
-$database   = "modul 3 Aisyah";
-$connector = mysqli_connect($host, $user, $password, $database);
-$err        = "";
-$email   = "";
-$rememberme   = "";
-
-if(isset($_COOKIE['cookie_email'])){
-    $cookie_email = $_COOKIE['cookie_email'];
-    $cookie_password = $_COOKIE['cookie_password'];
-
-    $sql1 = "SELECT * FROM users WHERE 1 = '$cookie_email'";
-    $q1   = mysqli_query($connector,$sql1);
-    $r1   = mysqli_fetch_array($q1);
-    if($r1['password'] == $cookie_password){
-        $_SESSION['session_email'] = $cookie_email;
-        $_SESSION['session_password'] = $cookie_password;
-    }
+ 
+if (isset($_SESSION['email'])) {
+    header("Location: homesesudahlogin.php");
 }
-
-if(isset($_SESSION['session_email'])){
-    header("location:anggota.php");
-    exit();
-}
-
-if(isset($_POST['login'])){
+ 
+if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $rememberme = $_POST['rememberme'];
-
-    if($email == '' or $password == ''){
-        $err .= "<li>Silakan masukkan email dan juga password.</li>";
-    }else{
-        $sql1 = "SELECT * FROM users WHERE username='$email'";
-        $q1   = mysqli_query($connector,$sql1);
-        $r1   = mysqli_fetch_array($q1);
-
-        if($r1['email'] == ''){
-            $err .= "<li> email <b>$email</b> tidak tersedia.</li>";
-        }elseif($r1['password'] != md5($password)){
-            $err .= "<li>Password yang dimasukkan tidak sesuai.</li>";
-        }       
-        
-        if(empty($err)){
-            $_SESSION['session_email'] = $email; //server
-            $_SESSION['session_password'] = md5($password);
-
-            if($rememberme == 1){
-                $cookie_name = "cookie_email";
-                $cookie_value = $email;
-                $cookie_time = time() + (60 * 60 * 24 * 30);
-                setcookie($cookie_name,$cookie_value,$cookie_time,"/");
-
-                $cookie_name = "cookie_password";
-                $cookie_value = md5($password);
-                $cookie_time = time() + (60 * 60 * 24 * 30);
-                setcookie($cookie_name,$cookie_value,$cookie_time,"/");
-            }
-            header("location:anggota.php");
+ 
+    $sql = "SELECT * FROM users WHERE email='$email' and '$password'";
+    $result = mysqli_query($connector, $sql);
+    $user= mysqli_fetch_array($result);
+    if ($result->num_rows > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['email'] = $row['email'];
+        header("Location: homesesudahlogin.php");
+        echo "<script>alert('Berhasil Login')</script>";
+        if($_POST['remember']== true) {
+          setcookie("simpan_email", $_POST["email"], time()+(60*60));
+          setcookie("simpan_password",$_POST["password"], time()+(60*60));
+          $_SESSION['email'] = $email;
         }
+    } else {
+        echo "<script>alert('Email atau password Anda salah, coba lagi!')</script>";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrasi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
+
+
+<!--FORM-->
 <body>
-<div class="container my-4">    
-    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
-        <div class="panel panel-info" >
-            <div class="panel-heading">
-                <div class="panel-title">Login</div>
-            </div>      
-            <div style="padding-top:30px" class="panel-body" >
-                <?php if($err){ ?>
-                    <div id="login-alert" class="alert alert-danger col-sm-12">
-                        <ul><?php echo $err ?></ul>
-                    </div>
-                <?php } ?>                
-                <form id="loginform" class="form-horizontal" action="" method="post" role="form">       
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="login-email" type="text" class="form-control" name="email" value="<?php echo $email ?>" placeholder="email">                                        
-                    </div>
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
-                    </div>
-                    <div class="input-group">
-                        <div class="checkbox">
-                        <label>
-                            <input id="login-remember" type="checkbox" name="Rememberme" value="1" <?php if($rememberme == '1') echo "checked"?>> Remember me
-                        </label>
-                        </div>
-                    </div>
-                    <div style="margin-top:10px" class="form-group">
-                        <div class="col-sm-12 controls">
-                            <input type="submit" name="login" class="btn btn-success" value="Login"/>
-                        </div>
-                    </div>
-                    <div class="form-footer mt-2">
-                        <p> Anda belum punya account? <a href="registrasi.php">Daftar</a></p>
-                    </div>
-                </form>    
-            </div>                     
-        </div>  
+<div class="d-flex justify-content-between align-items-center" style="height: 100vh;">
+    <div class="img" style="margin-left:0px;">
+        <img src="./gambar/raize.jpg" style="transform: scaleX(-1);width: 700px; height: 713px;" alt="">
     </div>
-</div>
-</body>
+    <form action="" method="post" style="width:50%;margin: 10px 50px">
+    <h1 style="padding-bottom:20px;">Login</h1>
+    <div class="col-md-9">
+        <div class="form-group mt-2">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
+            </div>
+        <div class="form-group mt-3">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" name="password" onkeyup ='check();'required>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" name="remember" value="true">
+            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+        </div>
+        <button type="submit" name="submit" class="btn btn-primary">Login</button>
+        <p class="mb-4" style="text-align: left,">Anda belum punya akun? <a href="./registrasi.php">Daftar</a></p>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </body>
 </html>

@@ -24,7 +24,7 @@ $page = "Home";
         <a class="nav-link" href="Home.php">Home</a>
         <a class="nav-link" href="Additem.php">MyCar</a>
         <nav navbar-expand-lg navbar-dark bg-primary class="container-fluid">
-                    <a href="login.php" type="submit" name="submit" class="btn btn-primary">login</a>
+        <a class="btn btn-primary" class="nav-link active"  href="./Login.php">Login</a>
       </div>
     </div>
   </div>
@@ -33,12 +33,12 @@ $page = "Home";
 <!--HOME-->
 <section>
     <div class="container p-5 vh-100">
-        <form action="AddItem.php" method="post">
+        <form action="login.php" method="post">
             <div class="row vh-100 align-items-center">
                 <div class="col" >
                     <h1> SELAMAT DATANG DI SHOW ROOM AISYAH WULAN AYDILA  </h1>
                     <p> At lacus vitae nulla sagittis scelerisque nisl. Pellentesque duis cursus vestibulum, facilisi ac, sed faucibus. </p>
-                    <a href="Additem.php" type="submit" class="btn btn-primary">MyCar</a>
+                    <a href="login.php" type="submit" class="btn btn-primary">MyCar</a>
                     <div class="d-flex justify-contents-start">
                         <div class="row mt-5">
                             <div class="col">

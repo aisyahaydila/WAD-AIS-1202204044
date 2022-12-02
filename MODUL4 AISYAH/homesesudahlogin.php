@@ -24,20 +24,25 @@ $page = "Home";
         <a class="nav-link" href="Home.php">Home</a>
         <a class="nav-link" href="Additem.php">MyCar</a>
         <nav navbar-expand-lg navbar-dark bg-primary class="container-fluid">
-        <a href="Additem.php" type="submit" name="submit" class="btn btn-primary">addcar</a>
-        <a class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">nama</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Profile</a>
-            <a class="dropdown-item" href="#">Logout</a>
+        <div class="d-flex">
+        <div class="navbar-nav navbar-dark">
+            <a class="btn btn-primary" class="nav-link active"  href="../Pages/Sonia-Add.php">Add Car</a>
         </div>
+        <div class="dropdown">
+        <a class="btn btn-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Nama
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="Sonia-Profile.php">Profile</a></li>
+          <li><a class="dropdown-item" href="./Config/logout.php">Logout</a></li>
+        </ul>
         </li>
       </div>
     </div>
   </div>
 </nav>
 
-<!--HOME-->
+<!--HOME LOGIN-->
 <section>
     <div class="container p-5 vh-100">
         <form action="AddItem.php" method="post">

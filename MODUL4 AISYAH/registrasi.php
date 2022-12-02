@@ -1,109 +1,54 @@
 <?php
-require('konektor.php');
-session_start();
-$error = '';
-$validate = '';
-if( isset($_POST['submit']) ){
-        $email    = stripslashes($_POST['Email']);
-        $email    = mysqli_real_escape_string($connector, $email);
-        $nama     = stripslashes($_POST['nama']);
-        $nama     = mysqli_real_escape_string($connector, $nama);
-        $nohp     = stripslashes($_POST['Nomor Handphone']);
-        $nohp     = mysqli_real_escape_string($connector, $nohp);
-        $password = stripslashes($_POST['Kata Sandi']);
-        $password = mysqli_real_escape_string($connector, $password);
-        $repass   = stripslashes($_POST['Konfirmasi Kata Sandi']);
-        $repass   = mysqli_real_escape_string($connector, $repass);
-        if(!empty(trim($email)) && !empty(trim($nama)) && !empty(trim($nohp)) && !empty(trim($password)) && !empty(trim($repass))){
-            if($password == $repass){
-                if( cek_nama($name,$con) == 0 ){
-                    $pass  = password_hash($password, PASSWORD_DEFAULT);
-                    $query = "INSERT INTO users (email,nama,Nomor Handphone, password ) VALUES ('$email','$nama','$nohp','$pass')";
-                    $result   = mysqli_query($con, $query);
-                    if ($result) {
-                        $_SESSION['username'] = $username;
-                        
-                        header('Location: index.php');
-                     
-                    //jika gagal maka akan menampilkan pesan error
-                    } else {
-                        $error =  'Register User Gagal !!';
-                    }
-                }else{
-                        $error =  'Username sudah terdaftar !!';
-                }
-            }else{
-                $validate = 'Password tidak sama !!';
-            }
-             
-        }else {
-            $error =  'Data tidak boleh kosong !!';
-        }
-    } 
-    function cek_nama($username,$connector){
-        $nama = mysqli_real_escape_string($connector, $username);
-        $query = "SELECT * FROM users WHERE username = '$nama'";
-        if( $result = mysqli_query($connector, $query) ) return mysqli_num_rows($result);
-    }
+$title  = "Menubar dinamis with PHP";
+$page = "Home";
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Register</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrasi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 
-<body>
-<div class="row">
-<section class="container-fluid mb-4">
-<section class="row justify-content-center">
-    <section class="col-12 col-sm-6 col-md-6">
-        <form class="form-container" action="register.php" method="POST">
-            <h4 class="text-center font-weight-bold"> Sign-Up </h4>
-                <?php if($error != ''){ ?>
-                    <div class="alert alert-danger" role="alert"><?= $error; ?></div>
-                <?php } ?>
 
-                    <div class="form-group">
-                        <label for="InputEmail">Email</label>
-                        <input type="email" class="form-control" id="InputEmail" name="email" aria-describeby="emailHelp" placeholder=" ">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Nama</label>
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder=" ">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Nomor Handphone</label>
-                        <input type="text" class="form-control" id="nohp" name="nohp" placeholder=" ">
-                    </div>
-                    <div class="form-group">
-                        <label for="InputPassword">Kata Sandi</label>
-                        <input type="password" class="form-control" id="InputPassword" name="password" placeholder=" ">
-                        <?php if($validate != '') {?>
-                            <p class="text-danger"><?= $validate; ?></p>
-                        <?php }?>
-                    </div>
-                    <div class="form-group">
-                        <label for="InputPassword">Konfirmasi Kata Sandi</label>
-                        <input type="password" class="form-control" id="InputRePassword" name="repassword" placeholder=" ">
-                        <?php if($validate != '') {?>
-                            <p class="text-danger"><?= $validate; ?></p>
-                        <?php }?>
-                    </div>
-                    <button type="submit" name="submit" class="btn btn-primary btn-block" >Daftar</button>
-                    <div class="form-footer mt-2">
-                        <p> Anda sudah punya account? <a href="login.php">Login</a></p>
-                    </div>
-                </form>
-            </section>
-            </section>
-        </section>
-<!-- Bootstrap requirement jQuery pada posisi pertama, kemudian Popper.js, dan  yang terakhit Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-</body>
+<!--FORM-->
+<body>
+<div class="d-flex justify-content-between align-items-center" style="height: 100vh;">
+    <div class="img" style="margin-left:0px;">
+        <img src="./gambar/raize.jpg" style="transform: scaleX(-1);width: 700px; height: 713px;" alt="">
+    </div>
+    <form action="./regist.php" method="post" style="width:50%;margin: 10px 50px">
+    <h1 style="padding-bottom:20px;">Registrasi</h1>
+    <div class="col-md-9">
+        <div class="form-group mt-2">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
+            </div>
+        <div class="form-group mt-2">
+            <label for="exampleNama">Nama</label>
+            <input type="text" class="form-control" name="nama" id="nama" aria-describedby="namaHelp" >
+            <div id="namaHelp" class="form-text"></div>
+        </div>
+        <div class="form-group mt-3">
+            <label for="exampleInputnohp">Nomor Handphone</label>
+            <input type="number" class="form-control" name="no_hp" aria-describedby="nomorhp" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="exampleInputPassword1">Kata Sandi</label>
+            <input type="password" class="form-control" name="password" onkeyup ='check();'required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="exampleInputPassword1">Konfirmasi Kata Sandi</label>
+            <input type="password" class="form-control" name="konfirmasipassword" onkeyup ='check();'required>
+        </div>
+        <br></br>
+        <button type="submit" class="btn btn-primary">Daftar</button>
+        <p class="mb-4" style="text-align: left,">Anda sudah punya akun? <a href="./login.php">Login</a></p>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </body>
 </html>
